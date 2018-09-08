@@ -7,10 +7,16 @@ git:
 
 language: python
 
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
+matrix:
+  include:
+  - name: "host_python_27"
+    python: "2.7"
+  - name: "host_python_35"
+    python: "3.5"
+  - name: "host_python_3.6"
+    python: "3.6"
+  - name: "host_python_37_dev"
+    python: "3.7-dev"
 
 before_install:
   - sudo apt-get install g++
@@ -22,9 +28,12 @@ before_install:
   # We need to install python-3.6 from a third party repo as it is not
   # available as a standard package on Travis Trusty VMs.
   - sudo add-apt-repository ppa:jonathonf/python-3.6 -y
+  - sudo add-apt-repository ppa:jonathonf/python-3.7 -y
   - sudo apt-get update -q
   - sudo apt-get install python3.6
   - sudo apt-get install python3.6-dev
+  - sudo apt-get install python3.7
+  - sudo apt-get install python3.7-dev
 
 install:
   - pip install pyyaml
